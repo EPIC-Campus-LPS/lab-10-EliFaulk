@@ -25,11 +25,14 @@ public class Wordle {
 		System.out.println("Welcome to Wordle!");
 		System.out.println("1. Guess the secret 5-letter word in 6 tries");
 		System.out.println("2. Each guess, you get to keep any letters that are correctly placed");
-		System.out.println("3. Good luck!");
+		System.out.println("3. After each guess, you will see correct letters and letters that are in the word, but not placed correctly.");
+		System.out.println("4. * means the letter is in the right spot, and ! means the letter is in the word, but not the right spot.");
+		System.out.println("5. Good luck!");
 		
 		//6 Guessing Rounds
 		int count = 0;
 		String showing = "_____";
+		String hints = "_____";
 		boolean winner = false;
 		for (int i = 0; i < 6; i++) {
 			count++;
@@ -43,9 +46,16 @@ public class Wordle {
 				for (int j = 0; j < 5; j++) {
 					if ((word.charAt(j) == guess.charAt(j)) && (showing.charAt(j) == '_')) {
 						showing = showing.substring(0,j) + word.charAt(j) + showing.substring(j+1);
+						hints = hints.substring(0,j) + "*" + hints.substring(j+1);
+					} else if (showing.charAt(j) == guess.charAt(j)) {
+						hints = hints.substring(0,j) + "*" + hints.substring(j+1);
+					} else if (word.indexOf(guess.charAt(j)) != -1) {
+						hints = hints.substring(0,j) + "!" + hints.substring(j+1);
 					}
 				}
 			}
+			System.out.println(hints);
+			hints = "_____";
 		}
 		
 		
