@@ -30,17 +30,19 @@ public class Wordle {
 		//6 Guessing Rounds
 		int count = 0;
 		String showing = "_____";
+		boolean winner = false;
 		for (int i = 0; i < 6; i++) {
 			count++;
-			System.out.println("");
+			System.out.println(showing);
 			System.out.print("Your Guess: ");
 			String guess = sc.nextLine();
 			if (word.equals(guess)) {
+				winner = true;
 				break;
 			} else {
 				for (int j = 0; j < 5; j++) {
 					if ((word.charAt(j) == guess.charAt(j)) && (showing.charAt(j) == '_')) {
-						
+						showing = showing.substring(0,j) + word.charAt(j) + showing.substring(j+1);
 					}
 				}
 			}
@@ -48,10 +50,11 @@ public class Wordle {
 		
 		
 		//Ending
-		if (showing.indexOf("_") != -1) {
+		if (winner) {
 			System.out.println("You got the word in " + count + " guesses!");
 		} else {
 			System.out.println("You lose!");
+			System.out.println("The word was: " + word);
 		}
 		sc.close();
 	}
